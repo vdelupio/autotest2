@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by gabriela.rojas on 6/29/16.
  *
- * Testing Ali
+ * Testing Ali Viquez
  *
  */
 public class LinkVerificationTest extends TestCase {
