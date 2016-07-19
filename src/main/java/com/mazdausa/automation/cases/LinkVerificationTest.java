@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 /**
  * Created by gabriela.rojas on 6/29/16.
+ *
+ * Testing Ali
+ *
  */
 public class LinkVerificationTest extends TestCase {
 
