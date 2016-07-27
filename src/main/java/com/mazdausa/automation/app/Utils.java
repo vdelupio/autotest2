@@ -41,6 +41,16 @@ public class Utils {
         this.driver = driver;
     }
 
+    public void clickAndWait(String xpath, int wait){
+        WebElement element = driver.findElement(By.xpath(xpath));
+        element.click();
+        try {
+            Thread.sleep(wait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 //    public String getUrl() {
 //        return url;
 //    }
