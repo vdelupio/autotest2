@@ -51,7 +51,7 @@ public class PanelGlobalHeader extends Panel {
         Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
         System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
 
-        //Displayed verification test
+        //Displayed Why Mazda verification test
         utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
         displayed_test.prepare(props.getProperty("why_mazda_dropdown"));
         Boolean whyMazdaDisplayed = displayed_test.test();
@@ -61,7 +61,8 @@ public class PanelGlobalHeader extends Panel {
         WebElement whyMazdaDropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
         Boolean whyMazdaMenuHoverResult = hover_test.testCollection(whyMazdaDropdown, "tag", "a", "color");
         System.out.println("Why Mazda Navigation Hover: " + ((whyMazdaMenuHoverResult) ? "PASS" : "FAIL"));
-        //Displayed verification test
+
+        //Displayed Shopping tool verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
         displayed_test.prepare(props.getProperty("shopping_tools_dropdown"));
         Boolean shoppingToolDisplayed = displayed_test.test();
