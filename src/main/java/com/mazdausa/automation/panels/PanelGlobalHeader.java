@@ -41,15 +41,15 @@ public class PanelGlobalHeader extends Panel {
 
         System.out.println("Starting PanelGlobalHeader");
 
-        //Mazda_Logo Link verification
-        WebElement globalHeaderlogo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
-        Boolean globalLogoResult = link_test.testLink(globalHeaderlogo, "class", "mazda-logo__desktop",props.getProperty("musa_homepage_url_prod"),false);
-        System.out.println("GlobalLogolink: " + ((globalLogoResult) ? "PASS" : "FAIL"));
-
-        //hover verification globalHeader parent
-        WebElement globalHeaderlink = driver.findElement(By.xpath(props.getProperty("globalheader_parent")));
-        Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
-        System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
+//        //Mazda_Logo Link verification
+//        WebElement globalHeaderlogo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
+//        Boolean globalLogoResult = link_test.testLink(globalHeaderlogo, "class", "mazda-logo__desktop",props.getProperty("musa_homepage_url_prod"),false);
+//        System.out.println("GlobalLogolink: " + ((globalLogoResult) ? "PASS" : "FAIL"));
+//
+//        //hover verification globalHeader parent
+//        WebElement globalHeaderlink = driver.findElement(By.xpath(props.getProperty("globalheader_parent")));
+//        Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
+//        System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
 
         //Displayed verification test
         utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
@@ -57,8 +57,10 @@ public class PanelGlobalHeader extends Panel {
         Boolean whyMazdaDisplayed = displayed_test.test();
         System.out.println("Why Mazda dropdown: " + ((whyMazdaDisplayed) ? "PASS" : "FAIL"));
 
-        //
-
+        //Why Mazda sub menu Hover Verification
+        WebElement whyMazdaDropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
+        Boolean whyMazdaMenuHoverResult = hover_test.testCollection(whyMazdaDropdown, "tag", "a", "color");
+        System.out.println("Why Mazda Navigation Hover: " + ((whyMazdaMenuHoverResult) ? "PASS" : "FAIL"));
     }
 
     @Override
