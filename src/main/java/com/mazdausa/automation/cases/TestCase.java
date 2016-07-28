@@ -5,8 +5,6 @@ package com.mazdausa.automation.cases;
  */
 abstract public class TestCase {
 
-    public abstract void prepare();
-
     public abstract boolean test();
 
     public String output(){

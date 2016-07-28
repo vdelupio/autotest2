@@ -19,48 +19,94 @@ import java.util.ArrayList;
 public class LinkVerificationTest extends TestCase {
 
     private WebDriver driver;
+    private String type;
+    private ArrayList<WebElement> collection_items;
+    private ArrayList<String> links;
+    private WebElement single_element;
+    private String single_link;
 
     public LinkVerificationTest(){
+        type = "single";
         driver = ExecState.getDriver();
     }
-    @Override
-    public void prepare() {
 
+    public void prepare(String t) {
+        type = t;
+    }
+
+    public void setSingleData(WebElement s, String l){
+        single_element = s;
+        single_link = l;
+    }
+
+    public void setCollectionData(WebElement parent, String search_type, String search_value, ArrayList<String> l){
+        switch (search_type){
+            case "tag":
+                collection_items = (ArrayList<WebElement>) parent.findElements(By.tagName(search_value));
+                break;
+            case "class":
+                collection_items = (ArrayList<WebElement>) parent.findElements(By.className(search_value));
+                break;
+            default:
+                collection_items = new ArrayList<WebElement>();
+                break;
+        }
+        links = l;
     }
 
     @Override
     public boolean test() {
-        return false;
-    }
-
-    public boolean testLink(WebElement element, String search_type, String search_value, String targetURL, boolean alertBoolean) {
         Boolean test_result = false;
-        switch (search_type){
-            case "tag":
-                element = driver.findElement(By.tagName(search_value));
-                break;
-            case "class":
-                element = driver.findElement(By.className(search_value));
-                break;
-            default:
-              //  elements = new ArrayList<WebElement>();
-                break;
-        }
-
-            try {
-                element.click();
-                if (targetURL.compareTo(driver.getCurrentUrl()) == 0) {
+        if(type.equals("single")){ //single element
+            if(single_element.getAttribute("href").equals(single_link)){
+                test_result = true;
+            }else{
+                test_result = false;
+            }
+        }else{ //collection
+            int i = 0;
+            for(WebElement element: collection_items){
+                if(element.getAttribute("href").equals(links.get(i))){
                     test_result = true;
-            } else {
+                }else{
                     test_result = false;
-                System.out.println("Target URL = " + targetURL);
-                System.out.println("Current URL = " + driver.getCurrentUrl());
+                    System.out.println("Link failed: " + links.get(i));
+                    break;
+                }
+                i++;
             }
-
-            } catch(Exception ex) {
-                System.out.println(ex.getMessage());
-
-            }
+        }
         return test_result;
     }
+
+//    public boolean testLink(WebElement element, String search_type, String search_value, String targetURL, boolean alertBoolean) {
+//        Boolean test_result = false;
+//        switch (search_type){
+//            case "tag":
+//                element = driver.findElement(By.tagName(search_value));
+//                break;
+//            case "class":
+//                element = driver.findElement(By.className(search_value));
+//                break;
+//            default:
+//              //  elements = new ArrayList<WebElement>();
+//                break;
+//        }
+//            try {
+//                element.click();
+//                if (targetURL.compareTo(driver.getCurrentUrl()) == 0) {
+//                    test_result = true;
+//            } else {
+//                    test_result = false;
+//                System.out.println("Target URL = " + targetURL);
+//                System.out.println("Current URL = " + driver.getCurrentUrl());
+//            }
+//
+//            } catch(Exception ex) {
+//                System.out.println(ex.getMessage());
+//
+//            }
+//        return test_result;
+//    }
 }
+
