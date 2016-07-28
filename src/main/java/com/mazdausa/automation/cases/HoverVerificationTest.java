@@ -22,7 +22,6 @@ public class HoverVerificationTest extends TestCase {
 
     }
 
-    @Override
     public void prepare() {
 
     }

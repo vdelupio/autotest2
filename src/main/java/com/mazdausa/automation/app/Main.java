@@ -74,7 +74,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(arguments.get("--config"));
+      //  System.out.println(arguments.get("--config"));
      //   System.out.println(arguments.get("--output"));
 
         //WebDriver appDriver = new FirefoxDriver();

@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -39,11 +40,13 @@ public class PanelGlobalHeader extends Panel {
 
     public void execute(){
 
-        System.out.println("Starting PanelGlobalHeader");
+        System.out.println("Starting PanelGlobalHeader\n\n");
 
         //Mazda_Logo Link verification
         WebElement globalHeaderlogo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
-        Boolean globalLogoResult = link_test.testLink(globalHeaderlogo, "class", "mazda-logo__desktop",props.getProperty("musa_homepage_url_prod"),false);
+        link_test.prepare("single");
+        link_test.setSingleData(globalHeaderlogo, props.getProperty("musa_homepage_url_prod"));
+        Boolean globalLogoResult = link_test.test();
         System.out.println("GlobalLogolink: " + ((globalLogoResult) ? "PASS" : "FAIL"));
 
         //hover verification globalHeader parent
@@ -62,6 +65,18 @@ public class PanelGlobalHeader extends Panel {
         Boolean whyMazdaMenuHoverResult = hover_test.testCollection(whyMazdaDropdown, "tag", "a", "color");
         System.out.println("Why Mazda Navigation Hover: " + ((whyMazdaMenuHoverResult) ? "PASS" : "FAIL"));
 
+        //Why Mazda sub menu links verification
+        link_test.prepare("collection");
+        ArrayList<String> links = new ArrayList<String>();
+        links.add(props.getProperty("driving_matters_link"));
+        links.add(props.getProperty("design_link"));
+        links.add(props.getProperty("safety_link"));
+        links.add(props.getProperty("inside_mazda_link"));
+        links.add(props.getProperty("discover_skyactiv_link"));
+        link_test.setCollectionData(whyMazdaDropdown, "tag", "a", links);
+        Boolean whyMazdaLinksResult = link_test.test();
+        System.out.println("Why Mazda Navigation Links: " + ((whyMazdaLinksResult) ? "PASS" : "FAIL"));
+
         //Displayed verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
         displayed_test.prepare(props.getProperty("shopping_tools_dropdown"));
@@ -72,9 +87,6 @@ public class PanelGlobalHeader extends Panel {
         WebElement ShoppingToolsDropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
         Boolean ShoppingToolsHoverResult = hover_test.testCollection(ShoppingToolsDropdown, "tag", "a", "color");
         System.out.println("Shopping Tools Navigation Hover: " + ((ShoppingToolsHoverResult) ? "PASS" : "FAIL"));
-
-        //
-
     }
 
     @Override
