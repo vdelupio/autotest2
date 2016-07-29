@@ -54,7 +54,7 @@ public class PanelGlobalHeader extends Panel {
         Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
         System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
 
-        //Displayed verification test
+        //Why Mazda Expand verification test
         utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
         displayed_test.prepare(props.getProperty("why_mazda_dropdown"));
         Boolean whyMazdaDisplayed = displayed_test.test();
