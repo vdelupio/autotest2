@@ -61,19 +61,19 @@ public class PanelGlobalHeader extends Panel {
         System.out.println("Why Mazda dropdown: " + ((whyMazdaDisplayed) ? "PASS" : "FAIL"));
 
         //Why Mazda sub menu Hover Verification
-        WebElement whyMazdaDropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
-        Boolean whyMazdaMenuHoverResult = hover_test.testCollection(whyMazdaDropdown, "tag", "a", "color");
-        System.out.println("Why Mazda Navigation Hover: " + ((whyMazdaMenuHoverResult) ? "PASS" : "FAIL"));
+        WebElement why_mazda_dropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
+        Boolean why_mazda_menu_hover_result = hover_test.testCollection(why_mazda_dropdown, "tag", "a", "color");
+        System.out.println("Why Mazda Navigation Hover: " + ((why_mazda_menu_hover_result) ? "PASS" : "FAIL"));
 
         //Why Mazda sub menu links verification
         link_test.prepare("collection");
-        ArrayList<String> links = new ArrayList<String>();
-        links.add(props.getProperty("driving_matters_link"));
-        links.add(props.getProperty("design_link"));
-        links.add(props.getProperty("safety_link"));
-        links.add(props.getProperty("inside_mazda_link"));
-        links.add(props.getProperty("discover_skyactiv_link"));
-        link_test.setCollectionData(whyMazdaDropdown, "tag", "a", links);
+        ArrayList<String> why_mazda_links = new ArrayList<String>();
+        why_mazda_links.add(props.getProperty("driving_matters_link"));
+        why_mazda_links.add(props.getProperty("design_link"));
+        why_mazda_links.add(props.getProperty("safety_link"));
+        why_mazda_links.add(props.getProperty("inside_mazda_link"));
+        why_mazda_links.add(props.getProperty("discover_skyactiv_link"));
+        link_test.setCollectionData(why_mazda_dropdown, "tag", "a", why_mazda_links);
         Boolean whyMazdaLinksResult = link_test.test();
         System.out.println("Why Mazda Navigation Links: " + ((whyMazdaLinksResult) ? "PASS" : "FAIL"));
 
@@ -84,9 +84,26 @@ public class PanelGlobalHeader extends Panel {
         System.out.println("Shopping Tools dropdown: " + ((shoppingToolDisplayed) ? "PASS" : "FAIL"));
 
         //Shopping tools sub menu Hover Verification
-        WebElement ShoppingToolsDropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
-        Boolean ShoppingToolsHoverResult = hover_test.testCollection(ShoppingToolsDropdown, "tag", "a", "color");
-        System.out.println("Shopping Tools Navigation Hover: " + ((ShoppingToolsHoverResult) ? "PASS" : "FAIL"));
+        WebElement shopping_tools_dropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
+        Boolean shopping_tools_hover_result = hover_test.testCollection(shopping_tools_dropdown, "tag", "a", "color");
+        System.out.println("Shopping Tools Navigation Hover: " + ((shopping_tools_hover_result) ? "PASS" : "FAIL"));
+
+        //Why Shopping Tools menu links verification
+        link_test.prepare("collection");
+        ArrayList<String> shopping_links = new ArrayList<String>();
+        shopping_links.add(props.getProperty("build_and_price_link"));
+        shopping_links.add(props.getProperty("compare_vehicles_link"));
+        shopping_links.add(props.getProperty("inventory_search_link"));
+        shopping_links.add(props.getProperty("cpo_inventory_search_link"));
+        shopping_links.add(props.getProperty("trade_in_estimator_link"));
+        shopping_links.add(props.getProperty("payment_estimator_link"));
+        shopping_links.add(props.getProperty("special_offers_link"));
+        shopping_links.add(props.getProperty("apply_for_financing_link"));
+        shopping_links.add(props.getProperty("request_quote_link"));
+        link_test.setCollectionData(shopping_tools_dropdown, "tag", "a", shopping_links);
+        Boolean shopping_linksResult = link_test.test();
+        System.out.println("Shopping Tools Links: " + ((shopping_linksResult) ? "PASS" : "FAIL"));
+
     }
 
     @Override
