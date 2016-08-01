@@ -23,7 +23,6 @@ public class IsDisplayedTest{
     }
 
     public boolean test() {
-
         return element.isDisplayed();
     }
 }
