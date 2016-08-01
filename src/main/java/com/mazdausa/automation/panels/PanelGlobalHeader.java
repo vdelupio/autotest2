@@ -2,6 +2,7 @@ package com.mazdausa.automation.panels;
 
 import com.mazdausa.automation.app.ExecState;
 import com.mazdausa.automation.app.Utils;
+import com.mazdausa.automation.cases.HasClassTest;
 import com.mazdausa.automation.cases.HoverVerificationTest;
 import com.mazdausa.automation.cases.IsDisplayedTest;
 import com.mazdausa.automation.cases.LinkVerificationTest;
@@ -23,6 +24,7 @@ public class PanelGlobalHeader extends Panel {
     private LinkVerificationTest link_test;
     private IsDisplayedTest displayed_test;
     private Utils utils;
+    private HasClassTest has_class_test;
 
     public PanelGlobalHeader(){
 
@@ -31,6 +33,7 @@ public class PanelGlobalHeader extends Panel {
         hover_test = new HoverVerificationTest();
         link_test = new LinkVerificationTest();
         displayed_test = new IsDisplayedTest();
+        has_class_test = new HasClassTest();
         utils = new Utils();
         utils.setDriver(driver);
         this.execute();
@@ -54,39 +57,10 @@ public class PanelGlobalHeader extends Panel {
         Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
         System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
 
-        //Why Mazda Expand verification test
-        utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
-        displayed_test.prepare(props.getProperty("why_mazda_dropdown"));
-        Boolean whyMazdaDisplayed = displayed_test.test();
-        System.out.println("Why Mazda dropdown expand: " + ((whyMazdaDisplayed) ? "PASS" : "FAIL"));
-
-        //Why Mazda sub menu Hover Verification
-        WebElement why_mazda_dropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
-        Boolean why_mazda_menu_hover_result = hover_test.testCollection(why_mazda_dropdown, "tag", "a", "color");
-        System.out.println("Why Mazda Navigation Hover: " + ((why_mazda_menu_hover_result) ? "PASS" : "FAIL"));
-
-        //Why Mazda sub menu links verification
-        link_test.prepare("collection");
-        ArrayList<String> why_mazda_links = new ArrayList<String>();
-        why_mazda_links.add(props.getProperty("driving_matters_link"));
-        why_mazda_links.add(props.getProperty("design_link"));
-        why_mazda_links.add(props.getProperty("safety_link"));
-        why_mazda_links.add(props.getProperty("inside_mazda_link"));
-        why_mazda_links.add(props.getProperty("discover_skyactiv_link"));
-        link_test.setCollectionData(why_mazda_dropdown, "tag", "a", why_mazda_links);
-        Boolean whyMazdaLinksResult = link_test.test();
-        System.out.println("Why Mazda Navigation Links: " + ((whyMazdaLinksResult) ? "PASS" : "FAIL"));
-
-        //Why Mazda Retract verification test
-        utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),2000);
-        displayed_test.prepare(props.getProperty("why_mazda_dropdown"));
-        Boolean why_mazda_retract = displayed_test.test();
-        System.out.println("Why Mazda dropdown retract: " + ((!why_mazda_retract) ? "PASS" : "FAIL"));
-
-        //Displayed verification test
+        //Shopping tools expand verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
-        displayed_test.prepare(props.getProperty("shopping_tools_dropdown"));
-        Boolean shoppingToolDisplayed = displayed_test.test();
+        has_class_test.prepare(props.getProperty("shopping_tools_container"),"show");
+        Boolean shoppingToolDisplayed = has_class_test.test();
         System.out.println("Shopping Tools dropdown: " + ((shoppingToolDisplayed) ? "PASS" : "FAIL"));
 
         //Shopping tools sub menu Hover Verification
@@ -109,6 +83,43 @@ public class PanelGlobalHeader extends Panel {
         link_test.setCollectionData(shopping_tools_dropdown, "tag", "a", shopping_links);
         Boolean shopping_linksResult = link_test.test();
         System.out.println("Shopping Tools Links: " + ((shopping_linksResult) ? "PASS" : "FAIL"));
+
+        //Shopping tools retract verification test
+        utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
+        has_class_test.prepare(props.getProperty("shopping_tools_container"),"show");
+        Boolean shoppingToolRetract = has_class_test.test();
+        System.out.println("Shopping Tools dropdown: " + ((!shoppingToolRetract) ? "PASS" : "FAIL"));
+
+        //Why Mazda Expand verification test
+        utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
+        has_class_test.prepare(props.getProperty("why_mazda_container"),"show");
+        Boolean whyMazdaDisplayed = has_class_test.test();
+        System.out.println("Why Mazda dropdown expand: " + ((whyMazdaDisplayed) ? "PASS" : "FAIL"));
+
+        //Why Mazda sub menu Hover Verification
+        WebElement why_mazda_dropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
+        Boolean why_mazda_menu_hover_result = hover_test.testCollection(why_mazda_dropdown, "tag", "a", "color");
+        System.out.println("Why Mazda Navigation Hover: " + ((why_mazda_menu_hover_result) ? "PASS" : "FAIL"));
+
+        //Why Mazda sub menu links verification
+        link_test.prepare("collection");
+        ArrayList<String> why_mazda_links = new ArrayList<String>();
+        why_mazda_links.add(props.getProperty("driving_matters_link"));
+        why_mazda_links.add(props.getProperty("design_link"));
+        why_mazda_links.add(props.getProperty("safety_link"));
+        why_mazda_links.add(props.getProperty("inside_mazda_link"));
+        why_mazda_links.add(props.getProperty("discover_skyactiv_link"));
+        link_test.setCollectionData(why_mazda_dropdown, "tag", "a", why_mazda_links);
+        Boolean whyMazdaLinksResult = link_test.test();
+        System.out.println("Why Mazda Navigation Links: " + ((whyMazdaLinksResult) ? "PASS" : "FAIL"));
+
+        //Why Mazda Retract verification test
+        utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),2000);
+        has_class_test.prepare(props.getProperty("why_mazda_container"),"show");
+        Boolean why_mazda_retract = has_class_test.test();
+        System.out.println("Why Mazda dropdown retract: " + ((!why_mazda_retract) ? "PASS" : "FAIL"));
+
+
 
     }
 
