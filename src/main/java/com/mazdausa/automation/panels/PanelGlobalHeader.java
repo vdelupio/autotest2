@@ -83,32 +83,32 @@ public class PanelGlobalHeader extends Panel {
         Boolean why_mazda_retract = displayed_test.test();
         System.out.println("Why Mazda dropdown retract: " + ((!why_mazda_retract) ? "PASS" : "FAIL"));
 
-//        //Displayed verification test
-//        utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
-//        displayed_test.prepare(props.getProperty("shopping_tools_dropdown"));
-//        Boolean shoppingToolDisplayed = displayed_test.test();
-//        System.out.println("Shopping Tools dropdown: " + ((shoppingToolDisplayed) ? "PASS" : "FAIL"));
-//
-//        //Shopping tools sub menu Hover Verification
-//        WebElement shopping_tools_dropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
-//        Boolean shopping_tools_hover_result = hover_test.testCollection(shopping_tools_dropdown, "tag", "a", "color");
-//        System.out.println("Shopping Tools Navigation Hover: " + ((shopping_tools_hover_result) ? "PASS" : "FAIL"));
-//
-//        //Why Shopping Tools menu links verification
-//        link_test.prepare("collection");
-//        ArrayList<String> shopping_links = new ArrayList<String>();
-//        shopping_links.add(props.getProperty("build_and_price_link"));
-//        shopping_links.add(props.getProperty("compare_vehicles_link"));
-//        shopping_links.add(props.getProperty("inventory_search_link"));
-//        shopping_links.add(props.getProperty("cpo_inventory_search_link"));
-//        shopping_links.add(props.getProperty("trade_in_estimator_link"));
-//        shopping_links.add(props.getProperty("payment_estimator_link"));
-//        shopping_links.add(props.getProperty("special_offers_link"));
-//        shopping_links.add(props.getProperty("apply_for_financing_link"));
-//        shopping_links.add(props.getProperty("request_quote_link"));
-//        link_test.setCollectionData(shopping_tools_dropdown, "tag", "a", shopping_links);
-//        Boolean shopping_linksResult = link_test.test();
-//        System.out.println("Shopping Tools Links: " + ((shopping_linksResult) ? "PASS" : "FAIL"));
+        //Displayed verification test
+        utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
+        displayed_test.prepare(props.getProperty("shopping_tools_dropdown"));
+        Boolean shoppingToolDisplayed = displayed_test.test();
+        System.out.println("Shopping Tools dropdown: " + ((shoppingToolDisplayed) ? "PASS" : "FAIL"));
+
+        //Shopping tools sub menu Hover Verification
+        WebElement shopping_tools_dropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
+        Boolean shopping_tools_hover_result = hover_test.testCollection(shopping_tools_dropdown, "tag", "a", "color");
+        System.out.println("Shopping Tools Navigation Hover: " + ((shopping_tools_hover_result) ? "PASS" : "FAIL"));
+
+        //Why Shopping Tools menu links verification
+        link_test.prepare("collection");
+        ArrayList<String> shopping_links = new ArrayList<String>();
+        shopping_links.add(props.getProperty("build_and_price_link"));
+        shopping_links.add(props.getProperty("compare_vehicles_link"));
+        shopping_links.add(props.getProperty("inventory_search_link"));
+        shopping_links.add(props.getProperty("cpo_inventory_search_link"));
+        shopping_links.add(props.getProperty("trade_in_estimator_link"));
+        shopping_links.add(props.getProperty("payment_estimator_link"));
+        shopping_links.add(props.getProperty("special_offers_link"));
+        shopping_links.add(props.getProperty("apply_for_financing_link"));
+        shopping_links.add(props.getProperty("request_quote_link"));
+        link_test.setCollectionData(shopping_tools_dropdown, "tag", "a", shopping_links);
+        Boolean shopping_linksResult = link_test.test();
+        System.out.println("Shopping Tools Links: " + ((shopping_linksResult) ? "PASS" : "FAIL"));
 
     }
 
