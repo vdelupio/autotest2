@@ -27,7 +27,6 @@ public class PanelGlobalHeader extends Panel {
     private HasClassTest has_class_test;
 
     public PanelGlobalHeader(){
-
         driver = ExecState.getDriver();
         props = ExecState.getProps();
         hover_test = new HoverVerificationTest();
@@ -37,7 +36,6 @@ public class PanelGlobalHeader extends Panel {
         utils = new Utils();
         utils.setDriver(driver);
         this.execute();
-
     }
 
 
@@ -46,22 +44,22 @@ public class PanelGlobalHeader extends Panel {
         System.out.println("Starting PanelGlobalHeader\n\n");
 
         //Mazda_Logo Link verification
-        WebElement globalHeaderlogo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
+        WebElement global_header_logo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
         link_test.prepare("single");
-        link_test.setSingleData(globalHeaderlogo, props.getProperty("musa_homepage_url_prod"));
-        Boolean globalLogoResult = link_test.test();
-        System.out.println("GlobalLogolink: " + ((globalLogoResult) ? "PASS" : "FAIL"));
+        link_test.setSingleData(global_header_logo, props.getProperty("musa_homepage_url_prod"));
+        Boolean global_logo_result = link_test.test();
+        System.out.println("Global Mazda Logo link: " + ((global_logo_result) ? "PASS" : "FAIL"));
 
         //hover verification globalHeader parent
-        WebElement globalHeaderlink = driver.findElement(By.xpath(props.getProperty("globalheader_parent")));
-        Boolean globaHoverResult = hover_test.testCollection(globalHeaderlink, "tag", "a", "color");
-        System.out.println("Global Navigation Hover: " + ((globaHoverResult) ? "PASS" : "FAIL"));
+        WebElement global_header_link = driver.findElement(By.xpath(props.getProperty("globalheader_parent")));
+        Boolean global_hover_result = hover_test.testCollection(global_header_link, "tag", "a", "color");
+        System.out.println("Global Navigation Hover: " + ((global_hover_result) ? "PASS" : "FAIL"));
 
         //Shopping tools expand verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
         has_class_test.prepare(props.getProperty("shopping_tools_container"),"show");
-        Boolean shoppingToolDisplayed = has_class_test.test();
-        System.out.println("Shopping Tools dropdown: " + ((shoppingToolDisplayed) ? "PASS" : "FAIL"));
+        Boolean shopping_tools_displayed = has_class_test.test();
+        System.out.println("Shopping Tools dropdown: " + ((shopping_tools_displayed) ? "PASS" : "FAIL"));
 
         //Shopping tools sub menu Hover Verification
         WebElement shopping_tools_dropdown = driver.findElement(By.xpath(props.getProperty("shopping_tools_dropdown_options")));
@@ -87,14 +85,14 @@ public class PanelGlobalHeader extends Panel {
         //Shopping tools retract verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
         has_class_test.prepare(props.getProperty("shopping_tools_container"),"show");
-        Boolean shoppingToolRetract = has_class_test.test();
-        System.out.println("Shopping Tools dropdown: " + ((!shoppingToolRetract) ? "PASS" : "FAIL"));
+        Boolean shopping_tools_retract = has_class_test.test();
+        System.out.println("Shopping Tools dropdown: " + ((!shopping_tools_retract) ? "PASS" : "FAIL"));
 
         //Why Mazda Expand verification test
         utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),1000);
         has_class_test.prepare(props.getProperty("why_mazda_container"),"show");
-        Boolean whyMazdaDisplayed = has_class_test.test();
-        System.out.println("Why Mazda dropdown expand: " + ((whyMazdaDisplayed) ? "PASS" : "FAIL"));
+        Boolean why_mazda_displayed = has_class_test.test();
+        System.out.println("Why Mazda dropdown expand: " + ((why_mazda_displayed) ? "PASS" : "FAIL"));
 
         //Why Mazda sub menu Hover Verification
         WebElement why_mazda_dropdown = driver.findElement(By.xpath(props.getProperty("why_mazda_dropdown_options")));
@@ -110,14 +108,46 @@ public class PanelGlobalHeader extends Panel {
         why_mazda_links.add(props.getProperty("inside_mazda_link"));
         why_mazda_links.add(props.getProperty("discover_skyactiv_link"));
         link_test.setCollectionData(why_mazda_dropdown, "tag", "a", why_mazda_links);
-        Boolean whyMazdaLinksResult = link_test.test();
-        System.out.println("Why Mazda Navigation Links: " + ((whyMazdaLinksResult) ? "PASS" : "FAIL"));
+        Boolean why_mazda_links_result = link_test.test();
+        System.out.println("Why Mazda Navigation Links: " + ((why_mazda_links_result) ? "PASS" : "FAIL"));
 
         //Why Mazda Retract verification test
         utils.clickAndWait(props.getProperty("globalHeader_whymazdalink"),2000);
         has_class_test.prepare(props.getProperty("why_mazda_container"),"show");
         Boolean why_mazda_retract = has_class_test.test();
         System.out.println("Why Mazda dropdown retract: " + ((!why_mazda_retract) ? "PASS" : "FAIL"));
+
+        //Owners Expand verification test
+        utils.clickAndWait(props.getProperty("globalHeader_ownerslink"),1000);
+        has_class_test.prepare(props.getProperty("owners_container"),"show");
+        Boolean owners_displayed = has_class_test.test();
+        System.out.println("Owners dropdown expand: " + ((owners_displayed) ? "PASS" : "FAIL"));
+
+        //Owners sub menu Hover Verification
+        WebElement owners_dropdown = driver.findElement(By.xpath(props.getProperty("owners_dropdown_options")));
+        Boolean owners_menu_hover_result = hover_test.testCollection(owners_dropdown, "tag", "a", "color");
+        System.out.println("Owners Navigation Hover: " + ((owners_menu_hover_result) ? "PASS" : "FAIL"));
+
+        //Owners sub menu links verification
+        link_test.prepare("collection");
+        ArrayList<String> owners_links = new ArrayList<String>();
+        owners_links.add(props.getProperty("overview_link"));
+        owners_links.add(props.getProperty("how_to_use_link"));
+        owners_links.add(props.getProperty("recalls_link"));
+        owners_links.add(props.getProperty("faq_link"));
+        owners_links.add(props.getProperty("service_link"));
+        owners_links.add(props.getProperty("parts_link"));
+        owners_links.add(props.getProperty("accessories_link"));
+        owners_links.add(props.getProperty("login_register_link"));
+        link_test.setCollectionData(owners_dropdown, "tag", "a", owners_links);
+        Boolean owners_links_result= link_test.test();
+        System.out.println("Owners Navigation Links: " + ((owners_links_result) ? "PASS" : "FAIL"));
+
+        //Owners Retract verification test
+        utils.clickAndWait(props.getProperty("globalHeader_ownerslink"),2000);
+        has_class_test.prepare(props.getProperty("owners_container"),"show");
+        Boolean owners_retract = has_class_test.test();
+        System.out.println("Owners dropdown retract: " + ((!owners_retract) ? "PASS" : "FAIL"));
 
 
 
