@@ -70,7 +70,7 @@ public class LinkVerificationTest extends TestCase {
                     test_result = true;
                 }else{
                     test_result = false;
-                    System.out.println("Link failed: " + links.get(i));
+                    System.out.println("Link failed: " + links.get(i) + ", got: " + element.getAttribute("href"));
                     break;
                 }
                 i++;
