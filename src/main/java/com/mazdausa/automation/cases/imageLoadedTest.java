@@ -1,28 +1,24 @@
 package com.mazdausa.automation.cases;
 
 import com.mazdausa.automation.app.ExecState;
-import com.mazdausa.automation.app.Utils;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 
 /**
- * Created by gabriela.rojas on 6/29/16.
+ * Created by gabriela.rojas on 8/11/16.
  */
-public class LinkVerificationTest extends TestCase {
-
+public class imageLoadedTest extends TestCase {
     private WebDriver driver;
     private String type;
     private ArrayList<WebElement> collection_items;
-    private ArrayList<String> links;
     private WebElement single_element;
-    private String single_link;
 
-    public LinkVerificationTest(){
+
+    public imageLoadedTest(){
         type = "single";
         driver = ExecState.getDriver();
     }
@@ -31,12 +27,11 @@ public class LinkVerificationTest extends TestCase {
         type = t;
     }
 
-    public void setSingleData(WebElement s, String l){
+    public void setSingleData(WebElement s){
         single_element = s;
-        single_link = l;
     }
 
-    public void setCollectionData(WebElement parent, String search_type, String search_value, ArrayList<String> l){
+    public void setCollectionData(WebElement parent, String search_type, String search_value){
         switch (search_type){
             case "tag":
                 collection_items = (ArrayList<WebElement>) parent.findElements(By.tagName(search_value));
@@ -44,33 +39,27 @@ public class LinkVerificationTest extends TestCase {
             case "class":
                 collection_items = (ArrayList<WebElement>) parent.findElements(By.className(search_value));
                 break;
-            case "css":
-                collection_items = (ArrayList<WebElement>) parent.findElements(By.cssSelector(search_value));
-                break;
             default:
                 collection_items = new ArrayList<WebElement>();
                 break;
         }
-        links = l;
     }
 
     @Override
     public boolean test() {
         Boolean test_result = false;
         if(type.equals("single")){ //single element
-            if(single_element.getAttribute("href").equals(single_link)){
-                test_result = true;
-            }else{
-                test_result = false;
-            }
+            Boolean imageLoaded = (Boolean)((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0;", single_element);
+
+                test_result = imageLoaded;
+
         }else{ //collection
             int i = 0;
             for(WebElement element: collection_items){
-                if(element.getAttribute("href").equals(links.get(i))){
-                    test_result = true;
-                }else{
-                    test_result = false;
-                    System.out.println("Link failed: " + links.get(i) + ", got: " + element.getAttribute("href"));
+                Boolean imageLoaded = (Boolean)((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0;", element);
+                test_result = imageLoaded;
+                if(!test_result){
+                    System.out.println("Found broken image" + element.getAttribute("src"));
                     break;
                 }
                 i++;
@@ -78,5 +67,5 @@ public class LinkVerificationTest extends TestCase {
         }
         return test_result;
     }
-}
 
+}

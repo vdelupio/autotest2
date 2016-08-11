@@ -2,12 +2,10 @@ package com.mazdausa.automation.panels;
 
 import com.mazdausa.automation.app.ExecState;
 import com.mazdausa.automation.app.Utils;
-import com.mazdausa.automation.cases.HasClassTest;
-import com.mazdausa.automation.cases.HoverVerificationTest;
-import com.mazdausa.automation.cases.IsDisplayedTest;
-import com.mazdausa.automation.cases.LinkVerificationTest;
+import com.mazdausa.automation.cases.*;
 import com.mazdausa.automation.panels.PanelGlobalHeader;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -25,6 +23,7 @@ public class PanelGlobalHeader extends Panel {
     private IsDisplayedTest displayed_test;
     private Utils utils;
     private HasClassTest has_class_test;
+    private imageLoadedTest image_loaded_test;
 
     public PanelGlobalHeader(){
         driver = ExecState.getDriver();
@@ -33,11 +32,11 @@ public class PanelGlobalHeader extends Panel {
         link_test = new LinkVerificationTest();
         displayed_test = new IsDisplayedTest();
         has_class_test = new HasClassTest();
+        image_loaded_test = new imageLoadedTest();
         utils = new Utils();
         utils.setDriver(driver);
         this.execute();
     }
-
 
     public void execute(){
 
@@ -54,6 +53,47 @@ public class PanelGlobalHeader extends Panel {
         WebElement global_header_link = driver.findElement(By.xpath(props.getProperty("globalheader_parent")));
         Boolean global_hover_result = hover_test.testCollection(global_header_link, "tag", "a", "color");
         System.out.println("Global Navigation Hover: " + ((global_hover_result) ? "PASS" : "FAIL"));
+
+        //Vehicles expand verification test
+        utils.clickAndWait(props.getProperty("globalHeader_vehiclelink"),1000);
+        has_class_test.prepare(props.getProperty("vehicles_container"),"show");
+        Boolean vehicles_displayed = has_class_test.test();
+        System.out.println("Vehicles dropdown expand: " + ((vehicles_displayed) ? "PASS" : "FAIL"));
+
+        //Vehicles sub menu Hover Verification
+        WebElement vehicles_dropdown_column_4 = driver.findElement(By.xpath(props.getProperty("vehicles_dropdown_column_4")));
+        Boolean vehicles_hover_result = hover_test.testCollection(vehicles_dropdown_column_4, "css", ".cta", "color");
+        System.out.println("Vehicles Navigation Hover: " + ((vehicles_hover_result) ? "PASS" : "FAIL"));
+
+        //Vehicles menu links verification
+        WebElement vehicles_dropdown = driver.findElement(By.xpath(props.getProperty("vehicles_dropdown_options")));
+        link_test.prepare("collection");
+        ArrayList<String> vehicles_links = new ArrayList<String>();
+        vehicles_links.add(props.getProperty("mazda3_4_door_link"));
+        vehicles_links.add(props.getProperty("mazda3_5_door_link"));
+        vehicles_links.add(props.getProperty("mazda_6_link"));
+        vehicles_links.add(props.getProperty("mazda_cx3_link"));
+        vehicles_links.add(props.getProperty("mazda_cx5_link"));
+        vehicles_links.add(props.getProperty("mazda_cx9_link"));
+        vehicles_links.add(props.getProperty("mazda_mx5_link"));
+        vehicles_links.add(props.getProperty("mazda_mx5_rf_link"));
+        vehicles_links.add(props.getProperty("explore_vehicle_link"));
+        vehicles_links.add(props.getProperty("learn_more_link"));
+        link_test.setCollectionData(vehicles_dropdown, "css", ".vehicle-nav__image-wrapper a, .cta", vehicles_links);
+        Boolean vehicles_linksResult = link_test.test();
+        System.out.println("Vehicles  Links: " + ((vehicles_linksResult) ? "PASS" : "FAIL"));
+
+        //Vehicles images loaded test
+        image_loaded_test.prepare("collection");
+        image_loaded_test.setCollectionData(vehicles_dropdown, "tag", "img");
+        Boolean vehicles_images_result = image_loaded_test.test();
+        System.out.println("Vehicles images: " + ((vehicles_images_result) ? "PASS" : "FAIL"));
+
+        //Vehicles retract verification test
+        utils.clickAndWait(props.getProperty("globalHeader_vehiclelink"),1000);
+        has_class_test.prepare(props.getProperty("vehicles_container"),"show");
+        Boolean vehicles_retract = has_class_test.test();
+        System.out.println("Vehicles dropdown retract: " + ((!vehicles_retract) ? "PASS" : "FAIL"));
 
         //Shopping tools expand verification test
         utils.clickAndWait(props.getProperty("globalHeader_shoppingtoollink"),1000);
@@ -148,8 +188,6 @@ public class PanelGlobalHeader extends Panel {
         has_class_test.prepare(props.getProperty("owners_container"),"show");
         Boolean owners_retract = has_class_test.test();
         System.out.println("Owners dropdown retract: " + ((!owners_retract) ? "PASS" : "FAIL"));
-
-
 
     }
 

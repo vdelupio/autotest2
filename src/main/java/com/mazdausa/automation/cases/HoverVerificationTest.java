@@ -51,8 +51,9 @@ public class HoverVerificationTest extends TestCase {
                 String initialPropertyValue = element.getCssValue(search_property);
                 Actions action = new Actions(ExecState.getDriver());
                 action.moveToElement(element).build().perform();
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 String hoveredPropertyValue = element.getCssValue(search_property);
+                System.out.println("initial: " + initialPropertyValue + "hovered: " + hoveredPropertyValue);
                 if(initialPropertyValue.equals(hoveredPropertyValue)){
                     test_result = false;
                 }
