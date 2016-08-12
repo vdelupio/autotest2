@@ -15,44 +15,61 @@ import com.mazdausa.automation.app.Utils;
  */
 public class HoverVerificationTest extends TestCase {
 
-    private WebElement element;
+
+    private WebDriver driver;
+    private String type;
+    private ArrayList<WebElement> collection_items;
+    private WebElement single_element;
+    private String prop;
 
 
-   public HoverVerificationTest() {
-
+    public HoverVerificationTest(){
+        type = "single";
+        driver = ExecState.getDriver();
     }
 
-    public void prepare() {
-
+    public void prepare(String t) {
+        type = t;
     }
+
+    public void setSingleData(WebElement s, String p){
+        single_element = s;
+        prop = p;
+    }
+
+    public void setCollectionData(WebElement parent, String search_type, String search_value, String p){
+        prop = p;
+        switch (search_type){
+            case "tag":
+                collection_items = (ArrayList<WebElement>) parent.findElements(By.tagName(search_value));
+                break;
+            case "class":
+                collection_items = (ArrayList<WebElement>) parent.findElements(By.className(search_value));
+                break;
+            case "css":
+                collection_items = (ArrayList<WebElement>) parent.findElements(By.cssSelector(search_value));
+                break;
+            default:
+                collection_items = new ArrayList<WebElement>();
+                break;
+        }
+    }
+
+
 
     @Override
     public boolean test() {
-
-        return false;
-    }
-
-    public Boolean testCollection (WebElement parent, String search_type, String search_value, String search_property){
         Boolean test_result = true;
-        ArrayList<WebElement> elements;
-        switch (search_type){
-            case "tag":
-                elements = (ArrayList<WebElement>) parent.findElements(By.tagName(search_value));
-                break;
-            case "class":
-                elements = (ArrayList<WebElement>) parent.findElements(By.className(search_value));
-                break;
-            default:
-                elements = new ArrayList<WebElement>();
-                break;
-        }
-        for(WebElement element: elements){
+        if(type.equals("single")){ //single element
             try {
-                String initialPropertyValue = element.getCssValue(search_property);
+
+                String initialPropertyValue = single_element.getCssValue(prop);
                 Actions action = new Actions(ExecState.getDriver());
-                action.moveToElement(element).build().perform();
+                action.moveToElement(single_element).build().perform();
                 Thread.sleep(2000);
-                String hoveredPropertyValue = element.getCssValue(search_property);
+                String hoveredPropertyValue = single_element.getCssValue(prop);
+
+                System.out.println("initial " + initialPropertyValue + "hovered" + hoveredPropertyValue);
                 if(initialPropertyValue.equals(hoveredPropertyValue)){
                     test_result = false;
                 }
@@ -60,8 +77,25 @@ public class HoverVerificationTest extends TestCase {
                 System.out.println(ex.getMessage());
 
             }
+        }else { //collection
+            for(WebElement element: collection_items){
+                try {
+
+                    String initialPropertyValue = element.getCssValue(prop);
+                    Actions action = new Actions(ExecState.getDriver());
+                    action.moveToElement(element).build().perform();
+                    Thread.sleep(2000);
+                    String hoveredPropertyValue = element.getCssValue(prop);
+
+                    if(initialPropertyValue.equals(hoveredPropertyValue)){
+                        test_result = false;
+                    }
+                } catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+
+                }
+            }
         }
         return test_result;
     }
-
 }
