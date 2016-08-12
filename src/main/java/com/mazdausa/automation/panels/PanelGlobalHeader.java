@@ -189,6 +189,13 @@ public class PanelGlobalHeader extends Panel {
         Boolean owners_retract = has_class_test.test();
         System.out.println("Owners dropdown retract: " + ((!owners_retract) ? "PASS" : "FAIL"));
 
+        //Find a dealer link verification
+        link_test.prepare("single");
+        WebElement find_a_dealer_option = driver.findElement(By.xpath(props.getProperty("globalHeader_findadealerlink")));
+        link_test.setSingleData(find_a_dealer_option,props.getProperty("find_a_dealer_link"));
+        Boolean find_a_dealer_link_result = link_test.test();
+        System.out.println("Find a dealer link: " + ((find_a_dealer_link_result) ? "PASS" : "FAIL"));
+
     }
 
     @Override
