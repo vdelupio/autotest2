@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by gabriela.rojas on 8/11/16.
@@ -16,7 +18,7 @@ public class imageLoadedTest extends TestCase {
     private String type;
     private ArrayList<WebElement> collection_items;
     private WebElement single_element;
-
+    private static final Logger logger = Logger.getLogger(imageLoadedTest.class.getName());
 
     public imageLoadedTest(){
         type = "single";
@@ -59,7 +61,7 @@ public class imageLoadedTest extends TestCase {
                 Boolean imageLoaded = (Boolean)((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0;", element);
                 test_result = imageLoaded;
                 if(!test_result){
-                    System.out.println("Found broken image" + element.getAttribute("src"));
+                    logger.log(Level.WARNING,"Found broken image" + element.getAttribute("src"));
                     break;
                 }
                 i++;

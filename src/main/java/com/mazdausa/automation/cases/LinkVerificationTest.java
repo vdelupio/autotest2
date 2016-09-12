@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by gabriela.rojas on 6/29/16.
@@ -24,6 +26,7 @@ public class LinkVerificationTest extends TestCase {
     private ArrayList<String> links;
     private WebElement single_element;
     private String single_link;
+    private static final Logger logger = Logger.getLogger(LinkVerificationTest.class.getName());
 
     public LinkVerificationTest(){
         type = "single";
@@ -73,8 +76,10 @@ public class LinkVerificationTest extends TestCase {
                     test_result = true;
                 }else{
                     test_result = false;
-                    System.out.println("Link failed: " + links.get(i) + ", got: " + element.getAttribute("href"));
+
+                    logger.log(Level.WARNING, "Link failed: " + links.get(i) + ", got: " + element.getAttribute("href"));
                     break;
+
                 }
                 i++;
             }

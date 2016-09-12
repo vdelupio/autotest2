@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.mazdausa.automation.app.Utils;
 
 
@@ -21,7 +24,7 @@ public class HoverVerificationTest extends TestCase {
     private ArrayList<WebElement> collection_items;
     private WebElement single_element;
     private String prop;
-
+    private static final Logger logger = Logger.getLogger(HoverVerificationTest.class.getName());
 
     public HoverVerificationTest(){
         type = "single";
@@ -69,12 +72,12 @@ public class HoverVerificationTest extends TestCase {
                 Thread.sleep(2000);
                 String hoveredPropertyValue = single_element.getCssValue(prop);
 
-                System.out.println("initial " + initialPropertyValue + "hovered" + hoveredPropertyValue);
+                logger.log(Level.FINER,"initial " + initialPropertyValue + "hovered" + hoveredPropertyValue);
                 if(initialPropertyValue.equals(hoveredPropertyValue)){
                     test_result = false;
                 }
             } catch(Exception ex) {
-                System.out.println(ex.getMessage());
+                logger.log(Level.WARNING,ex.getMessage(),ex);
 
             }
         }else { //collection
@@ -91,7 +94,7 @@ public class HoverVerificationTest extends TestCase {
                         test_result = false;
                     }
                 } catch(Exception ex) {
-                    System.out.println(ex.getMessage());
+                    logger.log(Level.WARNING,ex.getMessage(),ex);
 
                 }
             }
