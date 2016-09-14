@@ -47,6 +47,7 @@ public class PanelGlobalHeader extends Panel {
 
     public void execute(){
 
+        //LOGGER
         logger.log(Level.INFO,"Starting PanelGlobalHeader");
 
 
