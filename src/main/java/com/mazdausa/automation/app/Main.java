@@ -43,7 +43,6 @@ public class Main {
         ProdPageUrl = props.getProperty("musa_homepage_url_prod"); // site load
         driver.get(ProdPageUrl); //site load
 
-
         /* Parse arguments into map */
         HashMap<String, String> arguments = parseArgs(args);
 

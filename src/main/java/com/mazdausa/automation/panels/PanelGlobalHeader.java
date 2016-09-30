@@ -44,8 +44,24 @@ public class PanelGlobalHeader extends Panel {
         utils.setDriver(driver);
         this.execute();
     }
+    public void lenguagebox(int wait, String close) {
+        WebElement element = driver.findElement(By.id(props.getProperty("lenguagebox")));
+        WebElement Close = driver.findElement(By.id(props.getProperty("close")));
+        if(element != null && element.isDisplayed()) {
+            Close.click();
 
+            try {
+
+                Thread.sleep(wait);
+                Close.click();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return;
+    }
     public void execute(){
+
 
         //LOGGER
         logger.log(Level.INFO,"Starting PanelGlobalHeader");
