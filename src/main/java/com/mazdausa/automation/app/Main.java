@@ -1,9 +1,12 @@
 package com.mazdausa.automation.app;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.LogManager;
+
 import com.mazdausa.automation.*;
 import com.mazdausa.automation.cases.HoverVerificationTest;
 import com.mazdausa.automation.cases.LinkVerificationTest;
@@ -25,6 +28,7 @@ public class Main {
      */
 
     private static Properties config;
+    private static InputStream loggingConfig;
 
     public static void main(String[] args) {
         //Logger log = new Looger();
@@ -36,6 +40,16 @@ public class Main {
         Properties props=utils.getConfigProperties("data.properties"); // archivo de propiedades
         ExecState.setProps(props);
 
+        config= utils.getConfigProperties("myconfig.properties");
+
+        loggingConfig= utils.getConfigStream("logging.properties");
+        try {
+            LogManager.getLogManager().readConfiguration(loggingConfig);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         //Webdriver declaration, page assignment
         String ProdPageUrl; //declare the string
         WebDriver driver = new FirefoxDriver(); // webdriver creation
@@ -44,7 +58,7 @@ public class Main {
         driver.get(ProdPageUrl); //site load
 
         /* Parse arguments into map */
-        HashMap<String, String> arguments = parseArgs(args);
+       /* HashMap<String, String> arguments = parseArgs(args);
 
         //Configure execution
         //Set config file
@@ -57,7 +71,7 @@ public class Main {
                 System.out.println("Config file not found");
                 return;
             }
-        }
+        }*/
         //Set output type
         //Set console_output method
 

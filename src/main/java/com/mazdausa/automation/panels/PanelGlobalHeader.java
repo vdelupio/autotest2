@@ -10,7 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 
@@ -29,7 +32,9 @@ public class PanelGlobalHeader extends Panel {
     private Utils utils;
     private HasClassTest has_class_test;
     private imageLoadedTest image_loaded_test;
-    private static final Logger logger = Logger.getLogger(PanelGlobalHeader.class.getName());
+  private static final Logger logger = Logger.getLogger(PanelGlobalHeader.class.getName());
+
+
 
 
     public PanelGlobalHeader(){
@@ -44,29 +49,20 @@ public class PanelGlobalHeader extends Panel {
         utils.setDriver(driver);
         this.execute();
     }
-    public void lenguagebox(int wait, String close) {
-        WebElement element = driver.findElement(By.id(props.getProperty("lenguagebox")));
-        WebElement Close = driver.findElement(By.id(props.getProperty("close")));
-        if(element != null && element.isDisplayed()) {
-            Close.click();
 
-            try {
 
-                Thread.sleep(wait);
-                Close.click();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return;
-    }
     public void execute(){
 
 
-        //LOGGER
-        logger.log(Level.INFO,"Starting PanelGlobalHeader");
 
 
+
+
+        //test language popup
+      utils.wait(10000);
+      utils.switchToFrame(props.getProperty("musa_homepage_frameId"));
+        utils.clickwait(props.getProperty("musa_homepage_en_button"),1000);
+        utils.switchtoDefaultFrame();
 
         //Mazda_Logo Link verification
         WebElement global_header_logo = driver.findElement(By.xpath(props.getProperty("mazda_logo")));
