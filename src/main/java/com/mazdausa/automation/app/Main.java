@@ -52,6 +52,7 @@ public class Main {
 
         //Webdriver declaration, page assignment
         String ProdPageUrl; //declare the string
+        System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
         WebDriver driver = new FirefoxDriver(); // webdriver creation
         ExecState.setDriver(driver);
         ProdPageUrl = props.getProperty("musa_homepage_url_prod"); // site load
