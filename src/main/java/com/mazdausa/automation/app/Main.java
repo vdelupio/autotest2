@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
 
 import com.mazdausa.automation.*;
@@ -14,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Created by gabriela.rojas on 6/28/16.
@@ -53,8 +55,8 @@ public class Main {
         //Webdriver declaration, page assignment
         String ProdPageUrl; //declare the string
         System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
-        WebDriver driver = new FirefoxDriver(); // webdriver creation
-        ExecState.setDriver(driver);
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         ProdPageUrl = props.getProperty("musa_homepage_url_prod"); // site load
         driver.get(ProdPageUrl); //site load
 
