@@ -19,7 +19,7 @@ public class Utils {
     public Properties getConfigProperties(String configName) {
         Properties configProps = new Properties();
         try {
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream("./" + configName);
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream(configName);
             configProps.load(in);
         } catch (Exception e) {
             e.printStackTrace();

@@ -39,7 +39,7 @@ public class Main {
 
         //Utils Class we are uploading the properties file with the project variables
         Utils utils = new Utils();
-        Properties props=utils.getConfigProperties("data.properties"); // archivo de propiedades
+        Properties props=utils.getConfigProperties("C:\\Users\\pablo\\autotest2\\data.properties"); // archivo de propiedades
         ExecState.setProps(props);
 
         config= utils.getConfigProperties("myconfig.properties");
@@ -55,6 +55,8 @@ public class Main {
         //Webdriver declaration, page assignment
         String ProdPageUrl; //declare the string
         System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability("marionette", true);
         WebDriver driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         ProdPageUrl = props.getProperty("musa_homepage_url_prod"); // site load
