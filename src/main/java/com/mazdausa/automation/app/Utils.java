@@ -1,5 +1,8 @@
 package com.mazdausa.automation.app;
 import org.openqa.selenium.NoSuchFrameException;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +10,6 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by gabriela.rojas on 7/4/16.
@@ -19,8 +21,11 @@ public class Utils {
     public Properties getConfigProperties(String configName) {
         Properties configProps = new Properties();
         try {
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream(configName);
-            configProps.load(in);
+
+            File file = new File(configName);
+            FileInputStream fileInput = new FileInputStream(file);
+            configProps.load(fileInput);
+            fileInput.close();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -31,7 +36,8 @@ public class Utils {
     public InputStream getConfigStream(String configName) {
         InputStream in = null;
         try {
-            in= this.getClass().getClassLoader().getResourceAsStream("./" + configName);
+            File file = new File(configName);
+            in = new FileInputStream(file);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,12 +109,5 @@ public class Utils {
         }
     }
 
-
-//    public String getUrl() {
-//        return url;
-//    }
-//
-//    public void setUrl(String url) {this.url = url;
-//    }
 
 }

@@ -1,5 +1,7 @@
 package com.mazdausa.automation.app;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,12 +10,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.LogManager;
 
-import com.mazdausa.automation.*;
-import com.mazdausa.automation.cases.HoverVerificationTest;
-import com.mazdausa.automation.cases.LinkVerificationTest;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -39,14 +37,17 @@ public class Main {
 
         //Utils Class we are uploading the properties file with the project variables
         Utils utils = new Utils();
-        Properties props=utils.getConfigProperties("C:\\Users\\pablo\\autotest2\\data.properties"); // archivo de propiedades
-        ExecState.setProps(props);
 
+        Properties props=utils.getConfigProperties("data.properties");
+
+        // archivo de propiedades
+        ExecState.setProps(props);
         config= utils.getConfigProperties("myconfig.properties");
 
         loggingConfig= utils.getConfigStream("logging.properties");
         try {
             LogManager.getLogManager().readConfiguration(loggingConfig);
+            loggingConfig.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,8 +93,8 @@ public class Main {
             e.printStackTrace();
         }
 
-      //  System.out.println(arguments.get("--config"));
-     //   System.out.println(arguments.get("--output"));
+        //  System.out.println(arguments.get("--config"));
+        //   System.out.println(arguments.get("--output"));
 
         //WebDriver appDriver = new FirefoxDriver();
     }
