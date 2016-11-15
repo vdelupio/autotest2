@@ -62,7 +62,7 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         ProdPageUrl = props.getProperty("musa_homepage_url_prod"); // site load
         driver.get(ProdPageUrl); //site load
-
+        ExecState.setDriver(driver);
         /* Parse arguments into map */
        /* HashMap<String, String> arguments = parseArgs(args);
 
